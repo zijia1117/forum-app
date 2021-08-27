@@ -1,0 +1,20 @@
+.question-list {
+	width: 100%;
+	max-width: 1000px;
+	padding: 0 50px;
+	.title {
+		margin: 5px 0;
+	}
+	.question {
+		.user-info {
+			width: 100%;
+			display: flex;
+			justify-content: flex-end;
+			gap: 10px;
+			.user-name {
+				font-weight: bold;
+				text-decoration: underline;
+			}
+		}
+	}
+}

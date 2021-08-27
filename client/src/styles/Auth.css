@@ -1,0 +1,40 @@
+@import "~antd/dist/antd.css";
+
+.form-wrapper {
+	width: 500px;
+	/* width: 50vw; */
+
+	padding: 20px;
+	margin-top: 20px;
+
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+}
+
+.form-wrapper h1 {
+	margin-bottom: 5px !important;
+}
+
+.form-wrapper hr {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.login-form {
+	/* max-width: 300px; */
+	width: 60%;
+}
+.register-form {
+	width: 90%;
+	align-self: flex-start;
+}
+.login-form-forgot {
+	float: right;
+}
+.ant-col-rtl .login-form-forgot {
+	float: left;
+}
+.login-form-button {
+	width: 100%;
+}

@@ -1,0 +1,19 @@
+.answer-item {
+	text-align: left;
+	border-bottom: 1px solid grey;
+
+	.content {
+	}
+	.answer-info {
+		padding: 0 20px;
+		justify-content: flex-end;
+		display: flex;
+		gap: 15px;
+		.user-name {
+			font-weight: bold;
+			&::before {
+				content: " -- ";
+			}
+		}
+	}
+}

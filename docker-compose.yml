@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  gateway:
+    build:
+      context: ./api/gateway
+    networks:
+      main_network:
+        ipv4_address: 10.10.0.2
+    ports:
+      - 5000:5000
+    volumes:
+      - /app/node_modules
+      - ./api/gateway:/app
+    # stdin_open: true # docker run -i
+    # tty: true # docker run -t
+
+  auth:
+    build: ./api/services/auth
+    networks:
+      main_network:
+        ipv4_address: 10.10.0.10
+    # ports:
+    #   - 5001:5000
+    depends_on:
+      - auth_mongo
+    volumes:
+      - ./api/services/auth:/app
+
+  auth_mongo:
+    image: mongo
+    # restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootooroot
+    networks:
+      main_network:
+        ipv4_address: 10.10.0.11
+    # ports:
+    #   - 27017:27017
+    command: mongod --quiet --logpath /dev/null
+
+  question:
+    build: ./api/services/question
+    networks:
+      main_network:
+        ipv4_address: 10.10.0.20
+    ports:
+      - 5001:5000
+    depends_on:
+      - question_mongo
+    volumes:
+      - /app/node_modules
+      - ./api/services/question:/app
+
+  question_mongo:
+    image: mongo
+    # restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootooroot
+    networks:
+      main_network:
+        ipv4_address: 10.10.0.21
+    ports:
+      - 27017:27017
+    command: mongod --quiet --logpath /dev/null
+
+networks:
+  main_network:
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24

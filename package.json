@@ -1,0 +1,16 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "workspaces": [
+    "client",
+    "api/gateway",
+    "api/services/auth",
+    "api/services/question"
+  ],
+  "scripts": {
+    "client": "yarn workspace client start",
+    "api": "docker compose up --build"
+  },
+  "private": true,
+  "license": "MIT"
+}

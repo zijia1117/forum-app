@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  forum-ui:
+    build: .
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+
+    command: yarn start
+    volumes:
+      - /app/node_modules
+      - ./:/app/
+    ports:
+      - "3000:3000"
+
+    stdin_open: true # docker run -i
+    tty: true # docker run -t

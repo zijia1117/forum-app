@@ -1,0 +1,10 @@
+{
+  "name": "forum-api-gateway",
+  "version": "1.0.0",
+  "hosts": "localhost",
+  "port": 5000,
+  "endpoints": {
+    "auth": "http://10.10.0.10:5000",
+    "question": "http://10.10.0.20:5000"
+  }
+}
