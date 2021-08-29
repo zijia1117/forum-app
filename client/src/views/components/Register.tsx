@@ -7,12 +7,27 @@ export default function Register() {
 	const model = new UserModel();
 
 	const onFinish = async (values: any) => {
-		await model.register(values);
+		// validate
+		if (values.password != values.confirm_password) {
+			message.warn("password mismatch");
+			return;
+		}
+
+		const res = await model.register(values);
+		if (res.error) {
+			const errs: [] = res.errors;
+			errs.forEach((e) => {
+				message.error(e);
+			});
+			return;
+		}
+
+		message.success("Registered, please login");
+		history.replace("/login");
 	};
 
 	const onFinishFailed = (errorInfo: any) => {
 		message.error(errorInfo);
-		// console.log("Failed:", errorInfo);
 	};
 
 	return (
@@ -50,7 +65,7 @@ export default function Register() {
 
 				<Form.Item
 					label="Confirm Pwd"
-					name="confirm-password"
+					name="confirm_password"
 					rules={[{ required: true, message: "Please input your password!" }]}>
 					<Input.Password />
 				</Form.Item>
