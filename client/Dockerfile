@@ -1,4 +1,4 @@
-FROM --platform=arm64 node:slim
+FROM  node:slim
 WORKDIR /app/
 
 # ENV PATH /app/node_modules/.bin:$PATH

@@ -1,4 +1,4 @@
-FROM --platform=arm64 python:slim
+FROM  python:slim
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY requirements.txt /app

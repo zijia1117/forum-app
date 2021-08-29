@@ -31,7 +31,7 @@ export default class UserModel {
 	public async register(values: UserSchema) {
 		const { _id, dateModified, username, ...loginInfo } = values;
 
-		const res = await fetch("http://localhost:5000/auth/register", {
+		const res = await fetch("http://localhost:5000/register", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

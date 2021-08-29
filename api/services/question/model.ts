@@ -28,7 +28,7 @@ export class QuestionModel {
 	}
 
 	async getAllQuestions() {
-		return this.questions.find({}).toArray<Question>();
+		return this.questions.find({}).toArray();
 	}
 
 	async getQuestionDetail(_id: ObjectId) {
