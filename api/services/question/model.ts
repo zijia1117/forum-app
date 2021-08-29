@@ -68,7 +68,7 @@ export class QuestionModel {
 			{ $push: { answers: resAId } }
 		);
 
-		return this, this.questions.findOne({ _id });
+		return this.getQuestionDetail(_id);
 	}
 
 	async commentOnQuestion(
