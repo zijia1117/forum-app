@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { UserSchema } from "./../models/UserModel";
 import "../styles/Profile.scss";
+import { message } from "antd";
 export default function Profile(props: any) {
 	const history = useHistory();
 
@@ -10,7 +11,7 @@ export default function Profile(props: any) {
 	let stored = sessionStorage.getItem("user");
 
 	if (!stored) {
-		alert("Please login first");
+		message.warn("Please login first");
 
 		history.replace("/login");
 	}
