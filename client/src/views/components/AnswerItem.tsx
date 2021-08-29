@@ -1,17 +1,15 @@
-import react from "react";
+import { Answer } from "../../models/QuestionModel";
 import "./../../styles/AnswerItem.scss";
 
 export function AnswerItem(props: any) {
+	const { answer }: { answer: Answer } = props;
+
 	return (
 		<div className="answer-item">
-			<div className="content">
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat
-				odio nec viverra dignissim. Aliquam erat volutpat. Fusce eget risus vel
-				ante molestie elementum id a neque.
-			</div>
+			<div className="content">{answer.content}</div>
 			<div className="answer-info">
-				<div className="user-name">zijia</div>
-				<div className="time">{new Date().toUTCString()}</div>
+				<div className="user-name">{answer.username}</div>
+				<div className="time">{answer.time}</div>
 			</div>
 		</div>
 	);
