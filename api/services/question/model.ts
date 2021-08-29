@@ -59,8 +59,9 @@ export class QuestionModel {
 	) {
 		const { username, content } = _content;
 
-		const resAId = (await this.answers.insertOne({ username, content }))
-			.insertedId;
+		const resAId = (
+			await this.answers.insertOne({ username, content, time: new Date() })
+		).insertedId;
 
 		const resQ = await this.questions.updateOne(
 			{ _id },
@@ -79,6 +80,7 @@ export class QuestionModel {
 			await this.comments.insertOne({
 				username,
 				content,
+				time: new Date(),
 			})
 		).insertedId;
 
