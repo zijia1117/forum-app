@@ -8,7 +8,7 @@ export default function Register() {
 
 	const onFinish = async (values: any) => {
 		// validate
-		if (values.password != values.confirm_password) {
+		if (values.password !== values.confirm_password) {
 			message.warn("password mismatch");
 			return;
 		}
