@@ -20,7 +20,7 @@ export default function Profile(props: any) {
 		const user = JSON.parse(stored!);
 
 		setCurrentUser(user);
-	});
+	}, [currentUser, stored]);
 
 	function userProfile() {
 		const fields = [];

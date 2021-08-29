@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { List, Avatar, Divider } from "antd";
+import { useEffect, useState } from "react";
+import { List, Divider } from "antd";
 import "./../styles/Home.scss";
 import { Question } from "../models/QuestionModel";
 
