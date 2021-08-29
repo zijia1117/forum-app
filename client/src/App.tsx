@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	NavLink,
 	Switch,
@@ -24,12 +23,12 @@ function App() {
 						<NavLink exact activeClassName="router-link-active" to="/">
 							Home
 						</NavLink>
-						<NavLink
+						{/* <NavLink
 							exact
 							activeClassName="router-link-active"
 							to="/questions/:id">
 							Question
-						</NavLink>
+						</NavLink> */}
 						<NavLink activeClassName="router-link-active" to="/questions/new">
 							New Question
 						</NavLink>
