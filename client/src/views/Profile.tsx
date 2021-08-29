@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { UserSchema } from "./../models/UserModel";
-
+import "../styles/Profile.scss";
 export default function Profile(props: any) {
 	const history = useHistory();
 
@@ -11,7 +11,7 @@ export default function Profile(props: any) {
 
 	if (!stored) {
 		alert("Please login first");
-		// TODO: go back to login
+
 		history.replace("/login");
 	}
 
@@ -30,7 +30,8 @@ export default function Profile(props: any) {
 			<ul>
 				{fields.map((key, index) => (
 					<li key={index}>
-						{key}:{currentUser![key]}
+						<span>{key}:</span>
+						{currentUser![key]}
 					</li>
 				))}
 			</ul>
