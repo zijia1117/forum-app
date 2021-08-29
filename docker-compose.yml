@@ -20,8 +20,8 @@ services:
     networks:
       main_network:
         ipv4_address: 10.10.0.10
-    # ports:
-    #   - 5001:5000
+    ports:
+      - 5001:5000
     depends_on:
       - auth_mongo
     volumes:
@@ -45,8 +45,8 @@ services:
     networks:
       main_network:
         ipv4_address: 10.10.0.20
-    # ports:
-    #   - 5001:5000
+    ports:
+      - 5002:5000
     depends_on:
       - question_mongo
     volumes:
