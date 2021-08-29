@@ -1,63 +1,54 @@
-import react from "react";
-import { Divider } from "antd";
+import { useEffect, useState } from "react";
+import { Divider, message } from "antd";
 import { useParams } from "react-router-dom";
 import { AnswerItem } from "./components/AnswerItem";
 import "./../styles/QuestionDetail.scss";
+import { QuestionDetail as QuestionDetailModel } from "../models/QuestionModel";
 
 export function QuestionDetail(props: any) {
 	const { id: postId } = useParams<{ id: string }>();
 
-	console.log(postId);
+	const [question, setQuestion] = useState<QuestionDetailModel>();
+
+	useEffect(() => {
+		if (question) {
+			if (postId === ":id") {
+				message.warn("please go back to Home and click on a question.", 2);
+			}
+			return;
+		}
+
+		fetch("http://localhost:5000/questions/" + postId).then((res) => {
+			res.json().then((json) => {
+				setQuestion(json);
+			});
+		});
+	});
 
 	return (
 		<div className="post-detail">
-			<h1 className="title">title</h1>
+			<h1 className="title">{question?.title}</h1>
 			<div className="user-info">
-				<span className="user-name">zijia</span>
-				<span className="time">{new Date().toUTCString()}</span>
+				<span className="user-name">{question?.username}</span>
+				<span className="time">{question?.time}</span>
 			</div>
 			<div className="content">
-				<p>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat
-					odio nec viverra dignissim. Aliquam erat volutpat. Fusce eget risus
-					vel ante molestie elementum id a neque. Aenean diam eros, mollis a est
-					a, facilisis feugiat odio.Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Duis placerat odio nec viverra dignissim. Aliquam
-					erat volutpat. Fusce eget risus vel ante molestie elementum id a
-					neque. Aenean diam eros, mollis a est a, facilisis feugiat odio.Lorem
-					ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat odio
-					nec viverra dignissim. Aliquam erat volutpat. Fusce eget risus vel
-					ante molestie elementum id a neque. Aenean diam eros, mollis a est a,
-					facilisis feugiat odio.Lorem ipsum dolor sit amet, consectetur
-					adipiscing elit. Duis placerat odio nec viverra dignissim. Aliquam
-					erat volutpat. Fusce eget risus vel ante molestie elementum id a
-					neque. Aenean diam eros, mollis a est a, facilisis feugiat odio.
-				</p>
+				<p>{question?.content}</p>
+
 				<div className="comments">
-					<div className="comment-item">
-						<p>
-							comments Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Duis placerat odio nec viverra dignissim --
-							<span className="user-name">zijia</span>
-							<span className="time">{new Date().toUTCString()}</span>
-						</p>
-					</div>
-					<div className="comment-item">
-						<p>
-							comments Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Duis placerat odio nec viverra dignissim --
-							<span className="user-name">zijia</span>
-							<span className="time">{new Date().toUTCString()}</span>
-						</p>
-					</div>
-					<div className="comment-item">
-						<p>
-							comments Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Duis placerat odio nec viverra dignissim --
-							<span className="user-name">zijia</span>
-							<span className="time">{new Date().toUTCString()}</span>
-						</p>
-					</div>
+					{question?.comments && question.comments.length > 0
+						? question?.comments?.map((comment, index) => {
+								return (
+									<div key={index} className="comment-item">
+										<p>
+											{comment.content} --
+											<span className="user-name">{comment.username}</span>
+											<span className="time">{comment.time}</span>
+										</p>
+									</div>
+								);
+						  })
+						: "No comments"}
 				</div>
 			</div>
 			<Divider
@@ -65,11 +56,9 @@ export function QuestionDetail(props: any) {
 				style={{ fontWeight: "bold", fontSize: "24px" }}>
 				Answer(s)
 			</Divider>
-
-			<AnswerItem></AnswerItem>
-			<AnswerItem></AnswerItem>
-			<AnswerItem></AnswerItem>
-			<AnswerItem></AnswerItem>
+			{question?.answers?.map((answer, index) => {
+				return <AnswerItem key={index} answer={answer}></AnswerItem>;
+			})}
 		</div>
 	);
 }
