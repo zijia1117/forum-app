@@ -1,56 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { List, Avatar, Divider } from "antd";
 import "./../styles/Home.scss";
+import { Question } from "../models/QuestionModel";
 
 function Home() {
-	const data = [
-		{
-			title: "Title 1",
-			content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-								placerat odio nec viverra dignissim. Aliquam erat volutpat.
-								Fusce eget risus vel ante molestie elementum id a neque. Aenean
-								diam eros, mollis a est a, facilisis feugiat odio.`,
-			author: "zijia",
-			url: "/post/id",
-			time: new Date(),
-		},
-		{
-			title: "Title 2",
-			content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-								placerat odio nec viverra dignissim. Aliquam erat volutpat.
-								Fusce eget risus vel ante molestie elementum id a neque. Aenean
-								diam eros, mollis a est a, facilisis feugiat odio.`,
-			author: "zijia",
-			time: new Date(),
-		},
-		{
-			title: "Title 3",
-			content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-								placerat odio nec viverra dignissim. Aliquam erat volutpat.
-								Fusce eget risus vel ante molestie elementum id a neque. Aenean
-								diam eros, mollis a est a, facilisis feugiat odio.`,
-			author: "zijia",
-			time: new Date(),
-		},
-		{
-			title: "Title 4",
-			content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-								placerat odio nec viverra dignissim. Aliquam erat volutpat.
-								Fusce eget risus vel ante molestie elementum id a neque. Aenean
-								diam eros, mollis a est a, facilisis feugiat odio.`,
-			author: "zijia",
-			time: new Date(),
-		},
-		{
-			title: "Title 5",
-			content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-								placerat odio nec viverra dignissim. Aliquam erat volutpat.
-								Fusce eget risus vel ante molestie elementum id a neque. Aenean
-								diam eros, mollis a est a, facilisis feugiat odio.`,
-			author: "zijia",
-			time: new Date(),
-		},
-	];
+	const [questions, setQuestions] = useState<Question[]>();
+
+	useEffect(() => {
+		if (questions) return;
+
+		fetch("http://localhost:5000/questions").then((res) => {
+			res.json().then((r) => {
+				setQuestions(r);
+			});
+		});
+		return () => {};
+	});
 
 	return (
 		<div className="question-list">
@@ -61,19 +26,19 @@ function Home() {
 			<List
 				bordered
 				itemLayout="vertical"
-				dataSource={data}
+				dataSource={questions}
 				renderItem={(item) => (
 					<List.Item className="question">
 						<List.Item.Meta
 							style={{ textAlign: "start", marginBottom: "5px" }}
 							className="content"
-							title={<a href={item.url}>{item.title}</a>}
+							title={<a href={"/questions/" + item._id}>{item.title}</a>}
 							description={item.content}
 						/>
 
 						<div className="user-info">
-							<span className="user-name"> {item.author} </span>
-							<span className="time-posted">{item.time.toUTCString()}</span>
+							<span className="user-name"> {item.username} </span>
+							<span className="time-posted">{item.time}</span>
 						</div>
 					</List.Item>
 				)}
