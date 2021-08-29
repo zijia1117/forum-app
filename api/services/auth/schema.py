@@ -12,7 +12,7 @@ class UserSchema:
     def __init__(self, data: dict):
         self._id = data["_id"] if "_id" in data.keys() else None
         self.dateModified = (
-            data["dateModified"] if "_dateModified" in data.keys() else None
+            data["_dateModified"] if "_dateModified" in data.keys() else None
         )
         self.username = data["username"]
         self.password = data["password"]
@@ -24,7 +24,7 @@ class UserSchema:
             "username": self.username,
             "password": self.password,
             "email": self.email,
-            "dateModified": self.dateModified,
+            "_dateModified": self.dateModified,
         }
         if keys == []:
             keys = data.keys()

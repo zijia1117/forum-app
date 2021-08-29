@@ -1,3 +1,4 @@
+from datetime import datetime
 from schema import UserSchema
 from pymongo import MongoClient
 
@@ -13,7 +14,9 @@ class DB:
     def create_user(self, user: UserSchema):
         user = user.unpack(keys={"username", "email", "password"})
 
-        result = self.users.insert_one(user)
+        result = self.users.insert_one(
+            {"_dateModified": datetime.now().__str__(), **user}
+        )
         return result
 
     def retrieve_user(self, filter: dict):

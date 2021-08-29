@@ -1,3 +1,4 @@
+import json
 from schema import UserSchema
 from model import UserModel
 from flask.app import Flask
@@ -47,6 +48,17 @@ def user(username):
     else:
         # transform search result into UserSchema object
         return res.unpack(exclude=["password"])
+
+
+@app.get("/users/")
+def all_users():
+    res = model.get_users()
+
+    if res is None:
+        return json.dumps([])
+    else:
+        # transform search result into UserSchema object
+        return json.dumps(res)
 
 
 if __name__ == "__main__":

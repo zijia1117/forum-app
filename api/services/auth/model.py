@@ -52,3 +52,7 @@ class UserModel:
             return None
         user = UserSchema(res[0])
         return user
+
+    def get_users(self):
+        res = self.db.retrieve_user({})
+        return [UserSchema(u).unpack() for u in res]

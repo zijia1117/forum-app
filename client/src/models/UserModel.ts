@@ -11,7 +11,7 @@ class UserSchema {
 
 export default class UserModel {
 	public async login(values: UserSchema) {
-		const { _id, dateModified, ...registerInfo } = values;
+		const { _id, dateModified, username, ...loginInfo } = values;
 
 		const res = await fetch("http://localhost:5000/login", {
 			method: "POST",
@@ -20,7 +20,7 @@ export default class UserModel {
 				Accept: "application/json",
 			},
 			body: JSON.stringify({
-				...registerInfo,
+				...loginInfo,
 			}),
 			mode: "cors",
 			cache: "default",
@@ -29,7 +29,7 @@ export default class UserModel {
 	}
 
 	public async register(values: UserSchema) {
-		const { _id, dateModified, username, ...loginInfo } = values;
+		const { _id, dateModified, ...registerInfo } = values;
 
 		const res = await fetch("http://localhost:5000/register", {
 			method: "POST",
@@ -38,7 +38,7 @@ export default class UserModel {
 				Accept: "application/json",
 			},
 			body: JSON.stringify({
-				...loginInfo,
+				...registerInfo,
 			}),
 			mode: "cors",
 			cache: "default",
