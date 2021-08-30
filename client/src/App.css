@@ -58,6 +58,9 @@ h5 {
 	gap: 20px;
 }
 
+.nav-links a{
+}
+
 .router-link-active {
 	/* color: #61dafb; */
 	color: aliceblue;
